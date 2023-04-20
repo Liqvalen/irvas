@@ -15,7 +15,7 @@ function timer(id, deadline) {
         }
         
     }
-    function getZero(num){ //нуль перед цифрой
+    function addZero(num){ //нуль перед цифрой
         if(num >= 0 && num < 10){
             return `0${num}`
         } else{
@@ -36,13 +36,18 @@ function timer(id, deadline) {
         function updateClock(){
             const t = getTimeRemaining(endtime)
             //подставление полученных чисел в полученные переменные
-            days.innerHTML = getZero(t.days) 
-            hours.innerHTML = getZero(t.hours)
-            minutes.innerHTML = getZero(t.minutes)
-            seconds.innerHTML = getZero(t.seconds)
+            days.innerHTML = addZero(t.days) 
+            hours.innerHTML = addZero(t.hours)
+            minutes.innerHTML = addZero(t.minutes)
+            seconds.innerHTML = addZero(t.seconds)
 
 
             if(t.total <= 0){ //если время закончилось, то гг
+                days.textContent = '00'
+                hours.textContent = '00'
+                minutes.textContent = '00'
+                seconds.textContent = '00'
+
                 clearInterval(timeInterval)
             }
         }

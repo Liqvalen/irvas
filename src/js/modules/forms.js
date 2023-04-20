@@ -2,7 +2,8 @@ import { post } from "jquery"
 import checkNumInputs from "./checkNumInputs"
 const forms = (state) => {
     const form = document.querySelectorAll('form'),
-          inputs = document.querySelectorAll('input')  
+          inputs = document.querySelectorAll('input'),
+          windows = document.querySelectorAll('[data-modal]')
 
     checkNumInputs('input[name="user_phone"]')
     const message = {
@@ -25,6 +26,19 @@ const forms = (state) => {
             item.value = ''
         })
     }
+    const closeModal = () => {
+        setTimeout(() => {
+            windows.forEach(item => {
+                item.style.display = 'none'
+                document.body.style.overflow = ''
+            })
+        }, 3000);
+    }
+    // const clearObject = () => {
+    //     for (let q in items) {
+    //         delete items[q] 
+    //     }
+    // }
     form.forEach(item => {
         item.addEventListener('submit', (e) => {
             e.preventDefault()
@@ -48,9 +62,11 @@ const forms = (state) => {
                 .catch(() => statusMessage.textContent = message.failure)
                 .finally(() => {
                     clearInputs()
+                    // changeModalState()
+                    closeModal()
                     setTimeout(() => {
                         statusMessage.remove()
-                    }, 5000)
+                    }, 3000)
                 })
         })
     })
